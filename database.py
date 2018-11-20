@@ -20,3 +20,8 @@ def get_all_cats():
 def get_one_cat(id):
 	cats = session.query(Cat).filter_by(id = id ).first()
 	return cats 
+
+def add_vote(id):
+	cat = get_one_cat(id)
+	cat.votes += 1 
+	session.commit()

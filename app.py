@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from flask import request 
+from flask import request, redirect, url_for
 from database import *
 
 
@@ -17,7 +17,7 @@ def catbook_home():
 		name = request.form['firstname']
 		last_name = request.form['lastname']
 		cat = ad(name)
-		return render_template("actually_add_cat.html", cat = cat)
+		return render_template("add_cat.html", cat = cat)
 
 
 
@@ -29,6 +29,12 @@ def cat_page(id):
 @app.route('/add')
 def actually_add_cat():
 	return render_template("add_cat.html")
+
+@app.route('/vote/<int:id>')
+def vote(id):
+	add_vote(id)
+	return redirect('/')
+
 
 if __name__ == '__main__':
    app.run(debug = True)
